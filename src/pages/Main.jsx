@@ -2,6 +2,10 @@ import React from "react";
 import Charts from "../components/mainComponents/Charts";
 import StatComp from "../components/mainComponents/StatComp";
 import Sentiment from "../components/Sentiment";
+import About from "../components/About";
+import Tokenomics from "../components/Tokenomics";
+import Team from "../components/Team";
+import MayLike from "../components/MayLike";
 
 const Main = () => {
   return (
@@ -18,10 +22,19 @@ const Main = () => {
       <div>
         <Sentiment />
       </div>
-      <div>About Topic</div>
-      <div>Tokenomics</div>
-      <div>Team</div>
-      <div className=" bg-blue-600 md:hidden ">You May Also Like </div>
+      <div>
+        <About />
+      </div>
+      <div>
+        <Tokenomics />
+      </div>
+      <div>
+        {" "}
+        <Team />{" "}
+      </div>
+      <div className="  md:hidden ">
+        <MayLike />
+      </div>
     </main>
   );
 };

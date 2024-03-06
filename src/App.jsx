@@ -4,6 +4,7 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import Header from "./components/Header";
 import Main from "./pages/Main";
+import Aside from "./pages/Aside";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -14,7 +15,10 @@ function App() {
       <div className="flex flex-col">
         <div className="flex flex-col md:flex-row ">
           <Main />
-          <aside>get Started</aside>
+          <aside>
+            {" "}
+            <Aside />{" "}
+          </aside>
         </div>
         <div className=" hidden md:block bg-blue-600 ">You May Also Like </div>
       </div>
