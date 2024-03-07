@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Charts from "../components/mainComponents/Charts";
 import StatComp from "../components/mainComponents/StatComp";
 import Sentiment from "../components/Sentiment";
@@ -10,15 +10,10 @@ import { useNameContext } from "../context/NameContext";
 import { useParams } from "react-router-dom";
 
 const Main = () => {
-  const { name } = useParams();
-  const { setNameValue } = useNameContext();
-
-  // Update the name context when the route parameter changes
-  React.useEffect(() => {
-    setNameValue(name);
-  }, [name, setNameValue]);
-
-  console.log(name);
+  // const { name } = useParams();
+  // const [coin, setCoin] = useState(null);
+  const { name } = useNameContext();
+  // name != "ethereum" ? (name = "bitcoin") : name;
 
   return (
     <main className="flex flex-col md:max-w-5xl px-5 gap-4  py-2 w-screen ">
@@ -50,10 +45,13 @@ const Main = () => {
             </defs>
           </svg>
         </span>
-        <span className="text-sm text-black"> Bitcoin </span>
+        <span className="text-sm capitalize text-black">
+          {" "}
+          {name == "ethereum" ? "ethereum" : "bitcoin"}{" "}
+        </span>
       </div>
       <div>
-        <Charts />
+        <Charts coin={name == "ethereum" ? "ethereum" : "bitcoin"} />
       </div>
       <div>
         <StatComp />

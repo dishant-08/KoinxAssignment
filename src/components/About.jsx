@@ -3,14 +3,28 @@ import TypeHeader from "./commonComponents/TypeHeader";
 import Tax from "../assets/Tax.png";
 import Investing from "../assets/Investing.png";
 import Button from "./commonComponents/Button";
+import { useNameContext } from "../context/NameContext";
 const About = () => {
   const [bitcoinData, setBitcoinData] = useState(null);
+  const [coin, setCoin] = useState("bitcoin");
+  const { name } = useNameContext();
+
+  // Use a single useEffect to handle both name and coin changes
+  useEffect(() => {
+    // Conditionally set name to "bitcoin" if it's not "ethereum"
+    if (name !== "ethereum") {
+      setCoin("bitcoin");
+    } else {
+      setCoin("ethereum");
+    }
+  }, [name]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetch data based on the dynamically set coin value
         const response = await fetch(
-          "https://api.coingecko.com/api/v3/coins/bitcoin"
+          `https://api.coingecko.com/api/v3/coins/${coin}`
         );
         const data = await response.json();
         setBitcoinData(data);
@@ -19,12 +33,13 @@ const About = () => {
       }
     };
 
+    // Fetch data whenever the coin value changes
     fetchData();
-  }, []);
+  }, [coin]); // Include coin in the dependency array to trigger the effect when coin changes
 
   const sentence =
     bitcoinData &&
-    `Bitcoin’s price today is US$${bitcoinData.market_data.current_price.usd.toFixed(
+    `${name} ’s price today is US$${bitcoinData.market_data.current_price.usd.toFixed(
       2
     )}, with a 24-hour trading volume of $${
       bitcoinData.market_data.total_volume.usd
@@ -46,9 +61,9 @@ const About = () => {
 
   return (
     <div className="flex flex-col gap-4 bg-white p-4 rounded-lg ">
-      <TypeHeader text="About Bitcoin" />
+      <TypeHeader text={`About ${coin} `} />
       <div>
-        <h3 className="font-bold text-lg">What is Bitcoin? </h3>
+        <h3 className="font-bold capitalize text-lg">What is {coin}? </h3>
         <p className="text-base font-medium ">{sentence || "Loading..."}</p>
       </div>
       <div>
@@ -76,13 +91,13 @@ const About = () => {
       </div>
       <div>
         {/* <h3 className="font-bold text-lg">Lorem ipsum dolor sit amet </h3> */}
-        <TypeHeader text="Already Holding Bitcoin?" />
-        <div className=" flex flex-col md:flex-row gap-4 ">
-          <div>
-            <div className=" bg-gradient-to-r from-green-400 to-blue-800 max-w-96 p-4 rounded-md text-white text-center flex ">
+        <TypeHeader text={`Already Holding ${coin}?`} />
+        <div className=" flex mt-4 md:justify-around flex-col md:flex-row gap-4 ">
+          <div className="">
+            <div className=" bg-gradient-to-r from-green-400 to-blue-800 max-w-96 p-4 rounded-md text-white text-center gap-2 flex ">
               <img src={Investing} alt="Investing" />
 
-              <div className="flex flex-col">
+              <div className="flex flex-col items-center justify-center ">
                 <h2 className="text-xl  font-bold mb-2">
                   Calculate your Profits
                 </h2>
@@ -111,7 +126,7 @@ const About = () => {
             </div>
           </div>
         </div>
-        <p className="text-base hidden md:block font-medium ">
+        <p className="text-base mt-2 hidden md:block font-medium ">
           {" "}
           Fermentum hendrerit imperdiet nulla viverra faucibus. Sit aliquam
           massa vel convallis duis ac. Mi adipiscing semper scelerisque

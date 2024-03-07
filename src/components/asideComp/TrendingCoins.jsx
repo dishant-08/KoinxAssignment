@@ -17,7 +17,7 @@ const TrendingCoins = () => {
     fetchTrendingCoins();
   }, []);
 
-  console.log(trendingCoins);
+  // console.log(trendingCoins);
 
   return (
     <div className="bg-white p-5 rounded-md ">
@@ -26,7 +26,7 @@ const TrendingCoins = () => {
       <ul className=" flex flex-col space-y-2 ">
         {trendingCoins.map((coin, index) => (
           <li className=" flex justify-between " key={index}>
-            <div className="flex items-center gap-3 font-semibold ">
+            <div className="flex items-center text-md gap-3 font-semibold ">
               <img
                 className=" rounded-full  "
                 src={coin.item.small}

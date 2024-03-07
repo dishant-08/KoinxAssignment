@@ -2,46 +2,57 @@
 import React, { useEffect, useRef, memo, useState } from "react";
 import PriceArrowButton from "../commonComponents/PriceArrowButton";
 
-function TradingViewWidget({ coins = "bitcoin" }) {
+function TradingViewWidget({ coins }) {
   const [data, setData] = useState();
   const [price, setPrice] = useState();
-
-  const getCoinsData = async () => {
-    try {
-      const res = await fetch(
-        `https://api.coingecko.com/api/v3/coins/${coins}?community_data=false&developer_data=false&sparkline=true`
-      );
-      const temp = await res.json();
-      setData(temp);
-      //   console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const getCoinsMarketData = async () => {
-    try {
-      const res = await fetch(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${coins}&vs_currencies=inr%2Cusd&include_24hr_change=true`
-      );
-      const temp = await res.json();
-      setPrice(temp[coins]);
-      //   console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+  console.log(coins);
   useEffect(() => {
+    // Declare a variable to track whether the component is mounted
+    let isMounted = true;
+
+    const getCoinsData = async () => {
+      try {
+        const res = await fetch(
+          `https://api.coingecko.com/api/v3/coins/${coins}?community_data=false&developer_data=false&sparkline=true`
+        );
+
+        if (isMounted) {
+          const temp = await res.json();
+          setData(temp);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const getCoinsMarketData = async () => {
+      try {
+        const res = await fetch(
+          `https://api.coingecko.com/api/v3/simple/price?ids=${coins}&vs_currencies=inr%2Cusd&include_24hr_change=true`
+        );
+
+        if (isMounted) {
+          const temp = await res.json();
+          setPrice(temp[coins]);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
     getCoinsData();
-
     getCoinsMarketData();
-  }, []);
 
-  console.log(data);
+    // Run cleanup when the component is unmounted
+    return () => {
+      isMounted = false;
+    };
+
+    // Run the initial fetch
+  }, [coins]);
+
   const container = useRef();
 
   useEffect(() => {
-    // Create a unique ID for each script to prevent duplication
     const scriptId = "tradingview-widget-script";
     if (document.getElementById(scriptId)) return;
 
@@ -51,27 +62,8 @@ function TradingViewWidget({ coins = "bitcoin" }) {
       "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
     script.type = "text/javascript";
     script.async = true;
-    if (coins === "bitcoin") {
-      script.innerHTML = `
-          {
-              "autosize": true,
-              "symbol": "BITSTAMP:BTCUSD",
-              "timeframes": ["1", "5", "15", "30", "60", "D", "W"],
-              "interval": "D",
-              "timezone": "Etc/UTC",
-              "theme": "light",
-              "style": "3",
-              "locale": "en",
-              "enable_publishing": true,
-              "hide_top_toolbar": true,
-              "allow_symbol_change": true,
-              "save_image": false,
-              "calendar": true,
-              "hide_volume": true,
-              "support_host": "https://www.tradingview.com"
-          }
-      `;
-    } else if (coins === "ethereum") {
+
+    if (coins === "ethereum") {
       script.innerHTML = `
           {
               "autosize": true,
@@ -91,12 +83,31 @@ function TradingViewWidget({ coins = "bitcoin" }) {
               "support_host": "https://www.tradingview.com"
           }
       `;
+    } else {
+      script.innerHTML = `
+      {
+          "autosize": true,
+          "symbol": "BITSTAMP:BTCUSD",
+          "timeframes": ["1", "5", "15", "30", "60", "D", "W"],
+          "interval": "D",
+          "timezone": "Etc/UTC",
+          "theme": "light",
+          "style": "3",
+          "locale": "en",
+          "enable_publishing": true,
+          "hide_top_toolbar": true,
+          "allow_symbol_change": true,
+          "save_image": false,
+          "calendar": true,
+          "hide_volume": true,
+          "support_host": "https://www.tradingview.com"
+      }
+    `;
     }
-    container.current.appendChild(script);
 
-    // Increase height and width
-    // container.current.style.height = "500px"; // Adjust the height as needed
-    // container.current.style.width = "800px"; // Adjust the width as needed
+    if (container.current) {
+      container.current.appendChild(script);
+    }
 
     // Cleanup function
     return () => {
@@ -105,7 +116,7 @@ function TradingViewWidget({ coins = "bitcoin" }) {
         scriptElement.parentNode.removeChild(scriptElement);
       }
     };
-  }, []);
+  }, [coins]);
 
   return (
     <div className="   ">
@@ -125,7 +136,7 @@ function TradingViewWidget({ coins = "bitcoin" }) {
           <div className=" flex gap-4 ">
             <h2 className=" text-3xl font-bold ">
               {" "}
-              ${price?.usd.toLocaleString()}{" "}
+              ${price?.usd?.toLocaleString()}{" "}
             </h2>
 
             <div className="flex items-center gap-2">

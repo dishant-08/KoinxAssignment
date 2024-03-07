@@ -12,7 +12,8 @@ const Sentiment = () => {
 
   const handleNextClick = () => {
     // Update the scroll position by 50px
-    setScrollPosition((prevPosition) => prevPosition + 50);
+    if (scrollPosition <= 1050)
+      setScrollPosition((prevPosition) => prevPosition + 50);
   };
 
   useEffect(() => {
@@ -22,6 +23,7 @@ const Sentiment = () => {
       behavior: "smooth",
     });
   }, [scrollPosition]);
+  console.log(scrollPosition);
   return (
     <div className=" p-6 flex flex-col bg-white rounded-lg ">
       {/* <h2>Sentiment</h2>
@@ -88,7 +90,7 @@ const Sentiment = () => {
               <p className="text-xl">%</p>
             </div>
           </div>
-          <div className=" w-full flex gap-y-3 flex-col ">
+          <div className=" w-full flex gap-y-5 flex-col ">
             <ProgressBar text="Buy" value={76} color="#00B386" />
             <ProgressBar text="Hold" value={8} color="#C7C8CE" />
             <ProgressBar text="Sell" value={16} color="#F7324C" />

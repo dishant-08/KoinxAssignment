@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -6,10 +6,25 @@ import Header from "./components/Header";
 import Main from "./pages/Main";
 import Aside from "./pages/Aside";
 import MayLike from "./components/MayLike";
+import { useParams } from "react-router-dom";
+import { useNameContext } from "./context/NameContext";
 
 function App() {
-  // const [count, setCount] = useState(0);
+  const { name, setNameValue } = useNameContext();
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get("coins");
+    setNameValue(name);
+    // Do something with the name parameter
+  }, []);
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get("coins");
+    setNameValue(name);
+    // Do something with the name parameter
+  }, [name]);
 
+  // console.log(name);
   return (
     <>
       <div className="w-screen">

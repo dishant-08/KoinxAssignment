@@ -3,11 +3,11 @@ import React from "react";
 const TeamCard = ({ photo, name }) => {
   return (
     <div className="flex flex-col md:flex-row gap-4 rounded-md bg-blue-100 items-center p-4 ">
-      <div className="flex p-1 flex-col">
+      <div className="flex p-1 min-w-28 flex-col">
         <img src={photo} alt="name" />
         <div className="text-base font-bold">{name}</div>
         <div className="text-statText font-medium text-xs">
-          Designation here{" "}
+          Designation here
         </div>
       </div>
       <p className="text-sm text-black">

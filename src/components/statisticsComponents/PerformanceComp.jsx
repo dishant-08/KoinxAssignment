@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Slider from "./Slider";
 import StatCard from "./StatCard";
+import TypeHeader from "../commonComponents/TypeHeader";
+// const moment = require('moment');
+import moment from "moment";
 //ethereum
 const PerformanceComp = ({ crypto = "bitcoin" }) => {
   const [data, setData] = useState({});
   const [test, setTest] = useState({});
   const [loading, setLoading] = useState(true);
+
   const fetchData = async () => {
     try {
       const [chartResponse, additionalResponse] = await Promise.all([
@@ -22,6 +26,17 @@ const PerformanceComp = ({ crypto = "bitcoin" }) => {
 
       console.log(additionalData);
 
+      const currentPrice = additionalData.market_data?.current_price?.usd;
+
+      const allTimeHighChange = (
+        ((additionalData.market_data?.ath?.usd - currentPrice) / currentPrice) *
+        100
+      ).toFixed(1);
+      const allTimeLowChange = (
+        ((currentPrice - additionalData.market_data?.atl?.usd) /
+          additionalData.market_data?.atl?.usd) *
+        100
+      ).toFixed(1);
       setTest({
         ans: additionalData?.market_data?.total_market_cap?.usd,
       });
@@ -35,25 +50,25 @@ const PerformanceComp = ({ crypto = "bitcoin" }) => {
             ?.map((p) => p?.[1]) || [])
         ),
         sevenDayHigh: Math.max(
-          ...(chartData.prices
-            ?.slice(0, 7)
-
-            ?.map((p) => p?.[1]) || [])
+          ...(chartData.prices?.slice(0, 7)?.map((p) => p?.[1]) || [])
         ),
-
-        tradingVolume: additionalData.market_data?.total_volume?.usd,
+        tradingVolume: additionalData.market_data?.total_volume.usd,
         marketCapRank: additionalData.market_data?.market_cap_rank,
-        last24hLow: additionalData.market_data?.low_24h?.usd,
-        last24hHigh: additionalData.market_data?.high_24h?.usd,
-        marketCap: additionalData.market_data?.market_cap?.usd,
+        last24hLow: additionalData.market_data.low_24h.usd,
+        last24hHigh: additionalData.market_data.high_24h.usd,
+        marketCap: additionalData.market_data.market_cap.usd,
         marketCapDominance:
-          (additionalData.market_data?.market_cap?.usd || 0) /
-          (additionalData.market_data?.total_volume?.usd || 1),
+          (additionalData.market_data.market_cap.usd || 0) /
+          (additionalData.market_data.total_volume.usd || 1),
         volumeMarketCap:
-          (additionalData.market_data?.total_volume?.usd || 0) /
-          (additionalData.market_data?.market_cap?.usd || 1),
-        allTimeHigh: additionalData.market_data?.ath?.usd,
-        allTimeLow: additionalData.market_data?.atl?.usd,
+          (additionalData.market_data.total_volume.usd || 0) /
+          (additionalData.market_data.market_cap.usd || 1),
+        allTimeHigh: additionalData.market_data.ath.usd,
+        allTimeLow: additionalData.market_data.atl.usd,
+        allTimeLowDate: additionalData.market_data?.atl_date?.usd,
+        allTimeHighDate: additionalData.market_data?.ath_date?.usd,
+        allTimeHighChange: allTimeHighChange,
+        allTimeLowChange: allTimeLowChange,
       });
 
       setLoading(false);
@@ -62,7 +77,6 @@ const PerformanceComp = ({ crypto = "bitcoin" }) => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchData();
   }, []);
@@ -102,12 +116,12 @@ const PerformanceComp = ({ crypto = "bitcoin" }) => {
   if (loading) {
     return <p>Loading...</p>;
   }
-  console.log(data);
-  console.log(test);
+  console.log(data?.allTimeHighDate);
+  // console.log(test);
   return (
-    <div>
-      <h1 className="font-bold text-3xl"> Performance </h1>
-
+    <div className=" p-3 ">
+      {/* <h1 className="font-bold text-3xl p-2"> Performance </h1> */}
+      <TypeHeader text="Performance" />
       <div className=" flex flex-col ">
         <div className="flex flex-col ">
           <div className="flex items-center gap-4   justify-center ">
@@ -152,8 +166,9 @@ const PerformanceComp = ({ crypto = "bitcoin" }) => {
             </div>
           </div>
         </div>
-        <div className="flex items-end gap-5">
-          <h2 className=" font-bold text-2xl ">Fundamentals</h2>
+        <div className="flex items-end p-2 gap-5">
+          {/* <h2 className=" font-bold text-2xl ">Fundamentals</h2> */}
+          <TypeHeader text="Fundamentals" />
           <div className=" mb-1 ">
             <svg
               width="18"
@@ -182,14 +197,14 @@ const PerformanceComp = ({ crypto = "bitcoin" }) => {
             {/* <StatCard text="24h High" price={`${data.last24hHigh}`} /> */}
             <StatCard
               text="7d Low / 7d High"
-              price={`$${data.sevenDayLow?.toFixed(
+              price={`$${data?.sevenDayLow?.toFixed(
                 2
-              )} / $${data.sevenDayHigh?.toFixed(2)}`}
+              )} / $${data?.sevenDayHigh?.toFixed(2)}`}
             />
             {/* <StatCard text="7d High" price={`${data.sevenDayHigh}`} /> */}
             <StatCard
               text="Trading Volume"
-              price={`$${data.tradingVolume.toLocaleString()}`}
+              price={`$${data?.tradingVolume?.toLocaleString()}`}
             />
             <StatCard
               text="Market Cap Rank"
@@ -213,8 +228,54 @@ const PerformanceComp = ({ crypto = "bitcoin" }) => {
                 price={`${data.volumeMarketCap?.toFixed(4)}`}
               />
             )}
-            <StatCard text="All-Time High" price={`${data.allTimeHigh}`} />
-            <StatCard text="All-Time Low" price={`${data.allTimeLow}`} />
+            {/* <StatCard text="All-Time High" price={`${data?.allTimeHigh}`} /> */}
+            <div className="flex w-full border-b p-3 border-gray-300 justify-between">
+              <div className=" text-statText capitalize font-semibold ">
+                All-Time High
+              </div>
+              <div className=" text-black  font-sans text-sm flex flex-col items-end leading-6 font-semibold ml-2 ">
+                <p>
+                  {`$${data?.allTimeHigh}`}{" "}
+                  <span className=" text-red-400 ">
+                    {" "}
+                    -{`${data?.allTimeHighChange}%`}{" "}
+                  </span>
+                </p>
+                {/* <p>{` (${getFormattedDate(data?.allTimeHighDate)}) `}</p> */}
+                <p>
+                  {` ${moment(data?.allTimeHighDate).format(
+                    "MMM DD, YYYY"
+                  )} (Over ${moment().diff(
+                    moment(data?.allTimeHighDate),
+                    "years"
+                  )} years ) `}{" "}
+                </p>
+              </div>
+            </div>
+            <div className="flex w-full border-b p-3 border-gray-300 justify-between">
+              <div className=" text-statText capitalize font-semibold ">
+                All-Time Low
+              </div>
+              <div className=" text-black flex flex-col items-end  font-sans text-sm leading-6 font-semibold ml-2 ">
+                <p>
+                  {`$${data?.allTimeLow}`}{" "}
+                  <span className=" text-AbsoluteGreen ">
+                    {" "}
+                    +{`${data?.allTimeLowChange}%`}{" "}
+                  </span>
+                </p>
+                {/* <p>{` (${getFormattedDate(data?.allTimeLowDate)}) `}  </p> */}
+                <p>
+                  {` ${moment(data?.allTimeLowDate).format(
+                    "MMM DD, YYYY"
+                  )} (Over ${moment().diff(
+                    moment(data?.allTimeLowDate),
+                    "years"
+                  )} years ) `}{" "}
+                </p>
+              </div>
+            </div>
+            {/* <StatCard text="All-Time Low" price={`${data?.allTimeLow}`} /> */}
           </div>
         </div>
       </div>

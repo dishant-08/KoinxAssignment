@@ -18,16 +18,14 @@ function ActiveTab() {
   };
 
   return (
-    <div className="flex items-center w-full mx-auto  scrollbar-hide overflow-x-scroll ">
+    <div className="flex items-center font-semibold text-base w-full mx-auto border-b border-gray-300 scrollbar-hide overflow-x-scroll ">
       {tabs.map((tab, index) => (
         <a
           key={index}
           href="#"
           onClick={() => handleClick(index)}
-          className={`px-5 py-1  border-b-2 ${
-            activeTab === index
-              ? "border-violet-400 text-violet-400"
-              : "border-gray-700"
+          className={`px-5 py-1 border-b-2  ${
+            activeTab === index ? "border-primary z-10 text-primary" : ""
           }`}
         >
           {tab}
