@@ -3,7 +3,7 @@ import Circle from "../assets/circle.png";
 import TypeHeader from "./commonComponents/TypeHeader";
 const Tokenomics = () => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-4 bg-white p-3 rounded-lg ">
       <TypeHeader text=" Tokenomics" />
       <h3 className=" font-semibold text-xl  leading-9 ">
         Initial Distribution

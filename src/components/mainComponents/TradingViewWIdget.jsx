@@ -1,5 +1,6 @@
 // TradingViewWidget.jsx
 import React, { useEffect, useRef, memo, useState } from "react";
+import PriceArrowButton from "../commonComponents/PriceArrowButton";
 
 function TradingViewWidget({ coins }) {
   const [data, setData] = useState();
@@ -23,18 +24,16 @@ function TradingViewWidget({ coins }) {
         `https://api.coingecko.com/api/v3/simple/price?ids=${coins}&vs_currencies=inr%2Cusd&include_24hr_change=true`
       );
       const temp = await res.json();
-      setPrice(temp.bitcoin);
+      setPrice(temp[coins]);
       //   console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  
-
   useEffect(() => {
     getCoinsData();
-   
+
     getCoinsMarketData();
   }, []);
 
@@ -86,41 +85,50 @@ function TradingViewWidget({ coins }) {
   }, []);
 
   return (
-    <div>
-      <header className="flex flex-col space-y-4 ">
-        <div className=" flex gap-5  ">
-          <div className=" flex gap-3 ">
+    <div className=" p-2  ">
+      <header className="flex flex-col space-y-4  ">
+        <div className=" flex gap-10 bg-transparent ">
+          <div className=" flex gap-1 items-center ">
             <img src={data?.image?.thumb} alt={data?.name} />
-            <h2>{data?.name} </h2>
-            <h6> {data?.symbol} </h6>
+            <h2 className="text-xl font-semibold">{data?.name} </h2>
+            <h6 className=" uppercase text-statText "> {data?.symbol} </h6>
           </div>
-          <div>{data?.market_cap_rank} </div>
+          <div className=" border rounded-lg p-2 bg-statText text-white ">
+            Rank #{data?.market_cap_rank}{" "}
+          </div>
         </div>
 
-        <div className=" flex flex-col ">
+        <div className=" flex flex-col   p-2 bg-white ">
           <div className=" flex gap-4 ">
             <h2 className=" text-3xl font-bold ">
               {" "}
               ${price?.usd.toLocaleString()}{" "}
             </h2>
 
-            <div>
-              <button
+            <div className="flex items-center gap-2">
+              {/* <button
                 className={`${
                   price?.usd_24h_change > 0 ? "bg-green-500" : "bg-red-500"
                 } text-white py-2 px-4 rounded-full`}
               >
                 {price?.usd_24h_change > 0 ? "🔼" : "🔽"}
                 {price?.usd_24h_change.toFixed(2)}
-              </button>
+              </button> */}
+              <PriceArrowButton value={price?.usd_24h_change || 0} />
 
-              <div>(24H) </div>
+              <div className=" text-statText text-sm">(24H) </div>
             </div>
           </div>
           <div> ₹{price?.inr.toLocaleString()} </div>
+          <div className=" px-2 my-2 ">
+            <div className="border-b border-statText"></div>
+          </div>
         </div>
       </header>
-      <div className=" h-screen max-h-96 " ref={container}>
+      <div
+        className=" h-screen bg-white  md:p-0 overflow-x-hidden max-h-[400px] "
+        ref={container}
+      >
         <div className=" "></div>
       </div>
     </div>

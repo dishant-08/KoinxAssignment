@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import PriceArrowButton from "../commonComponents/PriceArrowButton";
+import TypeHeader from "../commonComponents/TypeHeader";
 
 const TrendingCoins = () => {
   const [trendingCoins, setTrendingCoins] = useState([]);
@@ -18,12 +20,27 @@ const TrendingCoins = () => {
   console.log(trendingCoins);
 
   return (
-    <div>
-      <h2>Trending Coins (24h)</h2>
-      <ul>
+    <div className="bg-white p-5 rounded-md ">
+      {/* <h2 className="" >Trending Coins (24h)</h2> */}
+      <TypeHeader text="Trending Coins (24h)" />
+      <ul className=" flex flex-col space-y-2 ">
         {trendingCoins.map((coin, index) => (
-          <li key={index}>
-            {coin.item.name} - {coin.item.symbol}
+          <li className=" flex justify-between " key={index}>
+            <div className="flex items-center gap-3 font-semibold ">
+              <img
+                className=" rounded-full  "
+                src={coin.item.small}
+                alt={coin.item.name}
+              />
+              <p>
+                {coin.item.name}({coin.item.symbol})
+              </p>
+            </div>
+            <div className=" ">
+              <PriceArrowButton
+                value={coin.item.data.price_change_percentage_24h.usd}
+              />
+            </div>
           </li>
         ))}
       </ul>

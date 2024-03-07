@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <header
       style={{ boxShadow: "0px 0px 12px 0px #1026490F" }}
-      className="p-4 bg-white  "
+      className="p-4 bg-white w-screen  "
     >
       <div className="container flex justify-between h-16 mx-auto">
         <a
@@ -31,7 +31,7 @@ const Header = () => {
               href="#"
               className="flex items-center px-4 -mb-1 border-b-2  border-transparent"
             >
-              Link
+              Crypto Taxes
             </a>
           </li>
           <li className="flex">
@@ -40,7 +40,7 @@ const Header = () => {
               href="#"
               className="flex items-center px-4 -mb-1 border-b-2  border-transparent"
             >
-              Link
+              Free Tools
             </a>
           </li>
           <li className="flex">
@@ -49,10 +49,10 @@ const Header = () => {
               href="#"
               className="flex items-center px-4 -mb-1 border-b-2 border-transparent "
             >
-              Link
+              Resource Center
             </a>
           </li>
-          <li className="flex">
+          {/* <li className="flex">
             <a
               rel="noopener noreferrer"
               href="#"
@@ -60,14 +60,14 @@ const Header = () => {
             >
               Link
             </a>
-          </li>
+          </li> */}
           <li className="flex">
             <a
               rel="noopener noreferrer"
               href="#"
               className="flex items-center px-4 -mb-1 border-b-2  border-transparent"
             >
-              <Button />
+              <Button variant="solidBlue" text="Get Started" />
             </a>
           </li>
         </ul>
@@ -97,7 +97,7 @@ const Header = () => {
                     href="#"
                     className="flex items-center px-4 -mb-1 border-b-2  border-transparent"
                   >
-                    Link
+                    Crypto Taxes
                   </a>
                 </li>
                 <li className="flex">
@@ -106,7 +106,7 @@ const Header = () => {
                     href="#"
                     className="flex items-center px-4 -mb-1 border-b-2  border-transparent"
                   >
-                    Link
+                    Free Tools
                   </a>
                 </li>
                 <li className="flex">
@@ -115,10 +115,10 @@ const Header = () => {
                     href="#"
                     className="flex items-center px-4 -mb-1 border-b-2 border-transparent "
                   >
-                    Link
+                    Resource Center
                   </a>
                 </li>
-                <li className="flex">
+                {/* <li className="flex">
                   <a
                     rel="noopener noreferrer"
                     href="#"
@@ -126,14 +126,14 @@ const Header = () => {
                   >
                     Link
                   </a>
-                </li>
+                </li> */}
                 <li className="flex">
                   <a
                     rel="noopener noreferrer"
                     href="#"
                     className="flex items-center px-4 -mb-1 border-b-2  border-transparent"
                   >
-                    <Button />
+                    <Button variant="solidBlue" text="Get Started" />
                   </a>
                 </li>
               </ul>

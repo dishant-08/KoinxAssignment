@@ -67,6 +67,38 @@ const PerformanceComp = () => {
     fetchData();
   }, []);
 
+  const [priceData, setPriceData] = useState(null);
+
+  useEffect(() => {
+    const fetchPriceData = async () => {
+      const response = await fetch(
+        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?days=365&vs_currency=usd"
+      );
+      const data = await response.json();
+
+      const prices = data.prices.map((price) => price[1]);
+
+      const todayLow = Math.min(...prices.slice(-24)); // Today's low is within the last 24 hours
+      const todayHigh = Math.max(...prices.slice(-24)); // Today's high is within the last 24 hours
+
+      const fiftyTwoWeekLow = Math.min(...prices); // 52-week low is the overall minimum price in the last year
+      const fiftyTwoWeekHigh = Math.max(...prices); // 52-week high is the overall maximum price in the last year
+
+      const currentPrice = prices[prices.length - 1]; // Current price is the latest price available
+      // const currentPrice = data.prices[data.prices.length - 1][1];
+
+      setPriceData({
+        todayLow: todayLow,
+        todayHigh: todayHigh,
+        fiftyTwoWeekLow: fiftyTwoWeekLow,
+        fiftyTwoWeekHigh: fiftyTwoWeekHigh,
+        currentPrice: currentPrice,
+      });
+    };
+
+    fetchPriceData();
+  }, []);
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -77,9 +109,48 @@ const PerformanceComp = () => {
       <h1 className="font-bold text-3xl"> Performance </h1>
 
       <div className=" flex flex-col ">
-        <div>
-          {/* <input type="range" min="0" max="150" /> */}
-          <Slider />
+        <div className="flex flex-col ">
+          <div className="flex items-center gap-4   justify-center ">
+            <div className="flex flex-col gap-y-2  ">
+              <p className="text-sm mt-4 ">Today's Low</p>
+              <p className=" font-medium text-base">
+                ${priceData?.todayLow?.toFixed(2)}{" "}
+              </p>
+            </div>
+
+            <Slider
+              min={priceData?.todayLow?.toFixed(2)}
+              max={priceData?.todayHigh?.toFixed(2)}
+              value={priceData?.currentPrice?.toFixed(2)}
+            />
+
+            <div className="flex flex-col gap-y-2  ">
+              <p className="text-sm  mt-4 ">Today's High</p>
+              <p className=" font-medium text-base">
+                $ {priceData?.todayHigh?.toFixed(2)}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-4 justify-center ">
+            <div className="flex flex-col gap-y-2  ">
+              <p className="text-sm mt-4 ">52W Low</p>
+              <p className=" font-medium text-base">
+                $ {priceData?.fiftyTwoWeekLow?.toFixed(2)}
+              </p>
+            </div>
+
+            <Slider
+              min={priceData?.fiftyTwoWeekLow?.toFixed(2)}
+              max={priceData?.fiftyTwoWeekHigh?.toFixed(2)}
+            />
+
+            <div className="flex flex-col gap-y-2  ">
+              <p className="text-sm  mt-4 ">52W High</p>
+              <p className=" font-medium text-base">
+                $ {priceData?.fiftyTwoWeekHigh?.toFixed(2)}
+              </p>
+            </div>
+          </div>
         </div>
         <div className="flex items-end gap-5">
           <h2 className=" font-bold text-2xl ">Fundamentals</h2>

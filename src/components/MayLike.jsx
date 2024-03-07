@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PriceArrowButton from "./commonComponents/PriceArrowButton";
 
 const MayLike = () => {
   const [trendingCoins, setTrendingCoins] = useState([]);
@@ -19,32 +20,72 @@ const MayLike = () => {
     fetchTrendingCoins();
   }, []);
 
+  console.log(trendingCoins);
+
   return (
-    <div className="my-8">
+    <div className="my-8  ">
       <h2 className="text-2xl font-bold mb-4">You May Also Like</h2>
-      <div className="flex overflow-x-auto space-x-4">
+      <div className="flex gap-[10px] overflow-x-auto ">
         {trendingCoins.map((coin, index) => (
-          <div key={index} className="bg-white p-4 rounded-md shadow-md">
+          <div
+            key={index}
+            className=" p-4 min-w-[14.75rem]  h-40 rounded-[10px] border border-slate-300 "
+          >
+            <div className="flex flex-col gap-3 ">
+              <div className="flex gap-1">
+                <img
+                  className=" w-6 h-6 mb-2"
+                  src={coin.item.small}
+                  alt={coin.item.name}
+                />
+                <p className="text-lg font-semibold">{coin.item.name}</p>
+
+                <div className=" ">
+                  <PriceArrowButton
+                    value={coin.item.data.price_change_percentage_24h.usd}
+                    plus={true}
+                  />
+                </div>
+              </div>
+
+              <p className="text-xl font-medium ">{coin.item.data.price}</p>
+            </div>
             <img
-              className=" mx-auto mb-2"
-              src={coin.item.small}
-              alt={coin.item.name}
+              className=" mt-1 "
+              src={coin.item.data.sparkline}
+              alt="Price Graph"
             />
-            <p className="text-lg font-semibold">
-              {coin.item.name} ({coin.item.symbol})
-            </p>
-            <p className="text-sm">Price: ${coin.item.data.price}</p>
-            <p
-              className={`text-sm ${
-                coin.item.data.price_change_percentage_24h.usd > 0
-                  ? "text-green-500"
-                  : "text-red-500"
-              }`}
-            >
-              Price Change: {coin.item.data.price_change_percentage_24h.usd}%
-            </p>
+          </div>
+        ))}
+      </div>
+      <h2 className="text-2xl font-bold mb-4">Trending Coins</h2>
+      <div className="flex gap-[10px] overflow-x-auto ">
+        {trendingCoins.map((coin, index) => (
+          <div
+            key={index}
+            className=" p-4 min-w-[14.75rem]  h-40 rounded-[10px] border border-slate-300 "
+          >
+            <div className="flex flex-col gap-3 ">
+              <div className="flex gap-1">
+                <img
+                  className=" w-6 h-6 mb-2"
+                  src={coin.item.small}
+                  alt={coin.item.name}
+                />
+                <p className="text-lg font-semibold">{coin.item.name}</p>
+
+                <div className=" ">
+                  <PriceArrowButton
+                    value={coin.item.data.price_change_percentage_24h.usd}
+                    plus={true}
+                  />
+                </div>
+              </div>
+
+              <p className="text-xl font-medium ">{coin.item.data.price}</p>
+            </div>
             <img
-              className="w-full mt-2"
+              className=" mt-1 "
               src={coin.item.data.sparkline}
               alt="Price Graph"
             />

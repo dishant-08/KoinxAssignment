@@ -4,8 +4,7 @@ import TradingViewWIdget from "./TradingViewWIdget";
 const Charts = () => {
   return (
     <div>
-      Charts
-      <div className=" ">
+      <div className=" md:bg-white p-1 rounded-lg ">
         <TradingViewWIdget coins={"bitcoin"} />
       </div>
     </div>

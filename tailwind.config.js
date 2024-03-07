@@ -17,8 +17,9 @@ export default {
       },
       fontFamily: {
         sfpro: ["SF Pro Text", "sans-serif"],
+        Inter: ["Inter", "sans-serif"],
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };

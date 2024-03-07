@@ -1,15 +1,34 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SentimentCard from "./sentimentComponents/SentimentCard";
 import NewsLogo from "../assets/newlogo.png";
+import NextBtn from "../assets/nextbtn.png";
 import TrendingLogo from "../assets/TrendingLogo.png";
 import ProgressBar from "./sentimentComponents/ProgressBar";
+import TypeHeader from "./commonComponents/TypeHeader";
 
 const Sentiment = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const containerRef = useRef(null);
+
+  const handleNextClick = () => {
+    // Update the scroll position by 50px
+    setScrollPosition((prevPosition) => prevPosition + 50);
+  };
+
+  useEffect(() => {
+    // Scroll to the updated position
+    containerRef.current.scrollTo({
+      left: scrollPosition,
+      behavior: "smooth",
+    });
+  }, [scrollPosition]);
   return (
-    <div className=" p-6 flex flex-col bg-white ">
-      <h2>Sentiment</h2>
+    <div className=" p-6 flex flex-col bg-white rounded-lg ">
+      {/* <h2>Sentiment</h2>
+       */}
+      <TypeHeader text="Sentiment" />
       <div className="flex items-center gap-3 ">
-        <h3>Key Events </h3>
+        <h3 className=" text-lg font-semibold text-statText">Key Events </h3>
         <svg
           width="18"
           height="18"
@@ -23,15 +42,31 @@ const Sentiment = () => {
           />
         </svg>
       </div>
-      <div className=" flex  w-full overflow-x-scroll ">
-        {/* <SentimentCard /> */}
-        <SentimentCard backgroundColor="#E8F4FD" imageSrc={NewsLogo} />
-        <SentimentCard backgroundColor="#EBF9F4" imageSrc={TrendingLogo} />
-        <SentimentCard backgroundColor="#EBF9F4" imageSrc={TrendingLogo} />
+      <div
+        className="flex w-full overflow-x-hidden relative"
+        ref={containerRef}
+      >
+        <div className="flex space-x-4">
+          {" "}
+          {/* Adjust space as needed */}
+          <SentimentCard backgroundColor="#E8F4FD" imageSrc={NewsLogo} />
+          <SentimentCard backgroundColor="#EBF9F4" imageSrc={TrendingLogo} />
+          <SentimentCard backgroundColor="#EBF9F4" imageSrc={TrendingLogo} />
+        </div>
+
+        {/* Set the scroll position based on state */}
+        <div
+          className="absolute top-1/2 right-2 transform -translate-y-1/2"
+          style={{ transform: `translateX(${scrollPosition}px)` }}
+        >
+          <img src={NextBtn} alt="next-btn" onClick={handleNextClick} />
+        </div>
       </div>
       <div className="flex flex-col">
         <div className="flex items-center gap-3 ">
-          <h3>Analyst Estimates </h3>
+          <h3 className=" text-lg font-semibold text-statText ">
+            Analyst Estimates{" "}
+          </h3>
           <svg
             width="18"
             height="18"
@@ -46,7 +81,7 @@ const Sentiment = () => {
           </svg>
         </div>
 
-        <div className="flex items-center  gap-10 ">
+        <div className="flex items-center gap-2  md:gap-10 ">
           <div className=" w-40 h-32 rounded-full bg-bgGreen flex justify-center items-center ">
             <div className="flex items-center text-AbsoluteGreen ">
               <p className=" text-5xl">76</p>

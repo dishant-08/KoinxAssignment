@@ -1,31 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 
-const Slider = () => {
-  const [sliderValue, setSliderValue] = useState(100); // Set the default value
+const Slider = ({ max, min, value }) => {
+  const [sliderValue, setSliderValue] = useState(value);
+
+  useEffect(() => {
+    setSliderValue(value);
+  }, [value]);
 
   return (
-    <div className="mt-8  flex items-center justify-center">
-      <div className="w-96 h-4 bg-gradient-to-r from-red-500 to-green-500 rounded-full relative">
-        <div className="relative">
-          <div
-            className="absolute  top-0 w-4 h-4 rounded-full border-2 border-green-500  bg-white"
-            style={{
-              left: `calc(${(sliderValue / 150) * 100}% - 8px)`, // Adjust the size of the arrow
-            }}
-          >
-            a
-          </div>
-          <div
-            className="absolute  top-10  flex items-center"
-            style={{
-              left: `calc(${(sliderValue / 150) * 100}% - 8px)`, // Adjust the size of the arrow
-            }}
-          >
-            <div className=" text-violet-900 text-xs flex items-center justify-center w-8 h-8 bg-blue-500 rounded-full">
-              {sliderValue}
+    <div className="mt-8 flex items-center justify-center">
+      <div
+        className={` w-screen max-w-[108px] md:max-w-[537px]  h-[4.63px] bg-gradient-to-r from-red-500 to-green-500 rounded-full relative ${
+          value ? "mb-4" : "" // Add margin-bottom if value exists
+        }`}
+        style={{ borderRadius: "10px" }}
+      >
+        {value && (
+          <div className="relative">
+            <div
+              className="absolute top-0 w-4 h-4 "
+              style={{
+                left: `calc(${
+                  ((sliderValue - min) / (max - min)) * 100
+                }% - 8px)`,
+              }}
+            >
+              <FontAwesomeIcon icon={faCaretUp} className="mr-2" />
+            </div>
+            <div
+              className="absolute top-4 flex items-center"
+              style={{
+                left: `calc(${
+                  ((sliderValue - min) / (max - min)) * 100
+                }% - 18px)`,
+              }}
+            >
+              <div className="text-sm font-sfpro flex items-center justify-center">
+                ${sliderValue.toLocaleString()}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

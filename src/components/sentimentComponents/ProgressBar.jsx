@@ -8,7 +8,9 @@ const ProgressBar = ({ text, value, color }) => {
         className="h-2.5 rounded-full "
         style={{ width: `${value}%`, backgroundColor: `${color}` }}
       ></div>
-      <span className="text-sm font-medium text-statText">{value} %</span>
+      <div className="text-sm flex justify-center items-center font-medium text-statText">
+        {value}%
+      </div>
     </div>
   );
 };

@@ -5,22 +5,26 @@ import "./App.css";
 import Header from "./components/Header";
 import Main from "./pages/Main";
 import Aside from "./pages/Aside";
+import MayLike from "./components/MayLike";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <Header />
-      <div className="flex flex-col">
-        <div className="flex flex-col md:flex-row ">
+      <div className="w-screen">
+        <Header />
+      </div>
+      <div className=" md:px-5 ">
+        <div className="flex md:px-10  flex-col md:gap-7 md:flex-row ">
           <Main />
           <aside>
-            {" "}
-            <Aside />{" "}
+            <Aside />
           </aside>
         </div>
-        <div className=" hidden md:block bg-blue-600 ">You May Also Like </div>
+      </div>
+      <div className=" hidden md:block p-10 bg-white ">
+        <MayLike />
       </div>
     </>
   );

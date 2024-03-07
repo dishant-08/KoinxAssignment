@@ -4,5 +4,7 @@
 
 body {
   background-color: #eff2f5;
+  width: 100vw;
   font-family: "Inter", sans-serif;
+  overflow-x: hidden;
 }

@@ -45,7 +45,7 @@ const About = () => {
     } M BTC and a max supply of ${bitcoinData.market_data.max_supply} M BTC.`;
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-4 bg-white p-4 rounded-lg ">
       <TypeHeader text="About Bitcoin" />
       <div>
         <h3 className="font-bold text-lg">What is Bitcoin? </h3>
@@ -77,35 +77,41 @@ const About = () => {
       <div>
         {/* <h3 className="font-bold text-lg">Lorem ipsum dolor sit amet </h3> */}
         <TypeHeader text="Already Holding Bitcoin?" />
-        <div>
-          <div className=" bg-gradient-to-r from-green-400 to-blue-800 w-96 p-4 rounded-md text-white text-center flex ">
-            <img src={Investing} alt="Investing" />
+        <div className=" flex flex-col md:flex-row gap-4 ">
+          <div>
+            <div className=" bg-gradient-to-r from-green-400 to-blue-800 max-w-96 p-4 rounded-md text-white text-center flex ">
+              <img src={Investing} alt="Investing" />
 
-            <div className="flex flex-col">
-              <h2 className="text-xl  font-bold mb-2">
-                Calculate your Profits
-              </h2>
-              {/* <p className="text-sm">Card Content</p>
-               */}
-              <Button />
+              <div className="flex flex-col">
+                <h2 className="text-xl  font-bold mb-2">
+                  Calculate your Profits
+                </h2>
+                {/* <p className="text-sm">Card Content</p>
+                 */}
+                <div className="flex justify-center items-center">
+                  <Button variant="default" text="Check Now" />
+                </div>{" "}
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className=" bg-gradient-to-r from-orange-500 max-w-96 to-red-600 p-4 rounded-md text-white text-center flex ">
+              <img src={Tax} alt="tax" />
+
+              <div className="flex flex-col">
+                <h2 className="text-xl  font-bold mb-2">
+                  Calculate your tax liability
+                </h2>
+                {/* <p className="text-sm">Card Content</p>
+                 */}
+                <div className="flex justify-center items-center">
+                  <Button variant="default" text="Check Now" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div>
-          <div className=" bg-gradient-to-r from-orange-500 w-96 to-red-600 p-4 rounded-md text-white text-center flex ">
-            <img src={Tax} alt="tax" />
-
-            <div className="flex flex-col">
-              <h2 className="text-xl  font-bold mb-2">
-                Calculate your tax liability
-              </h2>
-              {/* <p className="text-sm">Card Content</p>
-               */}
-              <Button />
-            </div>
-          </div>
-        </div>
-        <p className="text-base font-medium ">
+        <p className="text-base hidden md:block font-medium ">
           {" "}
           Fermentum hendrerit imperdiet nulla viverra faucibus. Sit aliquam
           massa vel convallis duis ac. Mi adipiscing semper scelerisque
