@@ -18,7 +18,7 @@ function ActiveTab() {
   };
 
   return (
-    <div className="flex items-center w-full  scrollbar-hide overflow-x-scroll ">
+    <div className="flex items-center w-full mx-auto  scrollbar-hide overflow-x-scroll ">
       {tabs.map((tab, index) => (
         <a
           key={index}
