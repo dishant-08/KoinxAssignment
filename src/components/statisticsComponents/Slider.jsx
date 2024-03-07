@@ -38,7 +38,7 @@ const Slider = ({ max, min, value }) => {
               }}
             >
               <div className="text-sm font-sfpro flex items-center justify-center">
-                ${sliderValue.toLocaleString()}
+                ${sliderValue?.toLocaleString()}
               </div>
             </div>
           </div>

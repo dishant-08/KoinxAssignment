@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Slider from "./Slider";
 import StatCard from "./StatCard";
-
-const PerformanceComp = () => {
+//ethereum
+const PerformanceComp = ({ crypto = "bitcoin" }) => {
   const [data, setData] = useState({});
   const [test, setTest] = useState({});
   const [loading, setLoading] = useState(true);
@@ -10,9 +10,9 @@ const PerformanceComp = () => {
     try {
       const [chartResponse, additionalResponse] = await Promise.all([
         fetch(
-          "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=365"
+          `https://api.coingecko.com/api/v3/coins/${crypto}/market_chart?vs_currency=usd&days=365`
         ),
-        fetch("https://api.coingecko.com/api/v3/coins/bitcoin"),
+        fetch(`https://api.coingecko.com/api/v3/coins/${crypto}`),
       ]);
 
       const [chartData, additionalData] = await Promise.all([
@@ -72,7 +72,7 @@ const PerformanceComp = () => {
   useEffect(() => {
     const fetchPriceData = async () => {
       const response = await fetch(
-        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?days=365&vs_currency=usd"
+        `https://api.coingecko.com/api/v3/coins/${crypto}/market_chart?days=365&vs_currency=usd`
       );
       const data = await response.json();
 
@@ -172,8 +172,8 @@ const PerformanceComp = () => {
         <div className=" flex flex-col md:flex-row md:gap-10 ">
           <div className="w-full md:w-1/2">
             <StatCard
-              text="Bitcoin Price"
-              price={`$${data.last24h.toFixed(2)}`}
+              text={`${crypto} Price`}
+              price={`$${data.last24h?.toFixed(2)}`}
             />
             <StatCard
               text="24h Low / 24h High"
@@ -182,32 +182,35 @@ const PerformanceComp = () => {
             {/* <StatCard text="24h High" price={`${data.last24hHigh}`} /> */}
             <StatCard
               text="7d Low / 7d High"
-              price={`$${data.sevenDayLow.toFixed(
+              price={`$${data.sevenDayLow?.toFixed(
                 2
-              )} / $${data.sevenDayHigh.toFixed(2)}`}
+              )} / $${data.sevenDayHigh?.toFixed(2)}`}
             />
             {/* <StatCard text="7d High" price={`${data.sevenDayHigh}`} /> */}
             <StatCard
               text="Trading Volume"
               price={`$${data.tradingVolume.toLocaleString()}`}
             />
-            <StatCard text="Market Cap Rank" price={`#${data.marketCapRank}`} />
+            <StatCard
+              text="Market Cap Rank"
+              price={`#${data?.marketCapRank}`}
+            />
           </div>
           <div className="w-full md:w-1/2">
             <StatCard
               text="Market Cap"
-              price={`$${data.marketCap.toLocaleString()}`}
+              price={`$${data.marketCap?.toLocaleString()}`}
             />
             {data.marketCapDominance !== undefined && (
               <StatCard
                 text="Market Cap Dominance (%)"
-                price={`${data.marketCapDominance.toFixed(2)}%`}
+                price={`${data.marketCapDominance?.toFixed(2)}%`}
               />
             )}
             {data.volumeMarketCap !== undefined && (
               <StatCard
                 text="Volume / Market Cap"
-                price={`${data.volumeMarketCap.toFixed(4)}`}
+                price={`${data.volumeMarketCap?.toFixed(4)}`}
               />
             )}
             <StatCard text="All-Time High" price={`${data.allTimeHigh}`} />

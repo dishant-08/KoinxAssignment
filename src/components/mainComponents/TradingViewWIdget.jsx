@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, memo, useState } from "react";
 import PriceArrowButton from "../commonComponents/PriceArrowButton";
 
-function TradingViewWidget({ coins }) {
+function TradingViewWidget({ coins = "bitcoin" }) {
   const [data, setData] = useState();
   const [price, setPrice] = useState();
 
@@ -51,24 +51,47 @@ function TradingViewWidget({ coins }) {
       "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
     script.type = "text/javascript";
     script.async = true;
-    script.innerHTML = `
-        {
-          "autosize": true,
-          "symbol": "BITSTAMP:BTCUSD",
-          "timeframes": ["1", "5", "15", "30", "60", "D", "W"],
-          "interval": "D",
-          "timezone": "Etc/UTC",
-          "theme": "light",
-          "style": "3",
-          "locale": "en",
-          "enable_publishing": true,
-          "hide_top_toolbar": true,
-          "allow_symbol_change": true,
-          "save_image": false,
-          "calendar": true,
-          "hide_volume": true,
-          "support_host": "https://www.tradingview.com"
-        }`;
+    if (coins === "bitcoin") {
+      script.innerHTML = `
+          {
+              "autosize": true,
+              "symbol": "BITSTAMP:BTCUSD",
+              "timeframes": ["1", "5", "15", "30", "60", "D", "W"],
+              "interval": "D",
+              "timezone": "Etc/UTC",
+              "theme": "light",
+              "style": "3",
+              "locale": "en",
+              "enable_publishing": true,
+              "hide_top_toolbar": true,
+              "allow_symbol_change": true,
+              "save_image": false,
+              "calendar": true,
+              "hide_volume": true,
+              "support_host": "https://www.tradingview.com"
+          }
+      `;
+    } else if (coins === "ethereum") {
+      script.innerHTML = `
+          {
+              "autosize": true,
+              "symbol": "COINBASE:ETHUSD",
+              "timeframes": ["1", "5", "15", "30", "60", "D", "W"],
+              "interval": "D",
+              "timezone": "Etc/UTC",
+              "theme": "light",
+              "style": "3",
+              "locale": "en",
+              "enable_publishing": true,
+              "hide_top_toolbar": true,
+              "allow_symbol_change": true,
+              "save_image": false,
+              "calendar": true,
+              "hide_volume": true,
+              "support_host": "https://www.tradingview.com"
+          }
+      `;
+    }
     container.current.appendChild(script);
 
     // Increase height and width
@@ -85,9 +108,9 @@ function TradingViewWidget({ coins }) {
   }, []);
 
   return (
-    <div className=" p-2  ">
+    <div className="   ">
       <header className="flex flex-col space-y-4  ">
-        <div className=" flex gap-10 bg-transparent ">
+        <div className=" flex gap-10  ">
           <div className=" flex gap-1 items-center ">
             <img src={data?.image?.thumb} alt={data?.name} />
             <h2 className="text-xl font-semibold">{data?.name} </h2>

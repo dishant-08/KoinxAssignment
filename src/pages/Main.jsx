@@ -6,8 +6,20 @@ import About from "../components/About";
 import Tokenomics from "../components/Tokenomics";
 import Team from "../components/Team";
 import MayLike from "../components/MayLike";
+import { useNameContext } from "../context/NameContext";
+import { useParams } from "react-router-dom";
 
 const Main = () => {
+  const { name } = useParams();
+  const { setNameValue } = useNameContext();
+
+  // Update the name context when the route parameter changes
+  React.useEffect(() => {
+    setNameValue(name);
+  }, [name, setNameValue]);
+
+  console.log(name);
+
   return (
     <main className="flex flex-col md:max-w-5xl px-5 gap-4  py-2 w-screen ">
       <div className="flex items-center  gap-2">

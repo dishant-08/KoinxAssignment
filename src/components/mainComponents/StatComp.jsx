@@ -6,7 +6,7 @@ const StatComp = () => {
   return (
     <div>
       <ActiveTab />
-      <PerformanceComp />
+      <PerformanceComp crypto="bitcoin" />
     </div>
   );
 };

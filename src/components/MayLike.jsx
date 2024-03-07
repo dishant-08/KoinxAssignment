@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PriceArrowButton from "./commonComponents/PriceArrowButton";
+import RightArrow from "../assets/next.png";
+import LeftArrow from "../assets/prev.png";
 
 const MayLike = () => {
   const [trendingCoins, setTrendingCoins] = useState([]);
@@ -25,7 +27,10 @@ const MayLike = () => {
   return (
     <div className="my-8  ">
       <h2 className="text-2xl font-bold mb-4">You May Also Like</h2>
-      <div className="flex gap-[10px] overflow-x-auto ">
+      <div className="flex gap-[10px] relative overflow-x-auto scrollbar-hide ">
+        <div className="absolute top-1/2 left-2  ">
+          <img src={LeftArrow} alt="LeftArrow" />
+        </div>
         {trendingCoins.map((coin, index) => (
           <div
             key={index}
@@ -57,6 +62,10 @@ const MayLike = () => {
             />
           </div>
         ))}
+
+        <div className=" absolute top-1/2 right-2 ">
+          <img src={RightArrow} alt="RightArrow" />
+        </div>
       </div>
       <h2 className="text-2xl font-bold mb-4">Trending Coins</h2>
       <div className="flex gap-[10px] overflow-x-auto ">
