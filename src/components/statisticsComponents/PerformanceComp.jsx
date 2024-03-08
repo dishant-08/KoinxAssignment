@@ -119,7 +119,7 @@ const PerformanceComp = ({ crypto = "bitcoin" }) => {
   console.log(data?.allTimeHighDate);
   // console.log(test);
   return (
-    <div className=" p-3 ">
+    <div className=" p-6 mt-6 rounded-lg bg-white ">
       {/* <h1 className="font-bold text-3xl p-2"> Performance </h1> */}
       <TypeHeader text="Performance" />
       <div className=" flex flex-col ">
@@ -229,7 +229,7 @@ const PerformanceComp = ({ crypto = "bitcoin" }) => {
               />
             )}
             {/* <StatCard text="All-Time High" price={`${data?.allTimeHigh}`} /> */}
-            <div className="flex w-full border-b p-3 border-gray-300 justify-between">
+            <div className="flex w-full h-16 border-b p-3 border-gray-300 justify-between">
               <div className=" text-statText capitalize font-semibold ">
                 All-Time High
               </div>
@@ -252,7 +252,7 @@ const PerformanceComp = ({ crypto = "bitcoin" }) => {
                 </p>
               </div>
             </div>
-            <div className="flex w-full border-b p-3 border-gray-300 justify-between">
+            <div className="flex w-full border-b p-3 h-16 border-gray-300 justify-between">
               <div className=" text-statText capitalize font-semibold ">
                 All-Time Low
               </div>

@@ -25,7 +25,7 @@ const Sentiment = () => {
   }, [scrollPosition]);
   console.log(scrollPosition);
   return (
-    <div className=" p-6 flex flex-col bg-white rounded-lg ">
+    <div className=" p-6 flex flex-col gap-4 bg-white rounded-lg ">
       {/* <h2>Sentiment</h2>
        */}
       <TypeHeader text="Sentiment" />
@@ -64,7 +64,7 @@ const Sentiment = () => {
           <img src={NextBtn} alt="next-btn" onClick={handleNextClick} />
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="flex gap-4 flex-col">
         <div className="flex items-center gap-3 ">
           <h3 className=" text-lg font-semibold text-statText ">
             Analyst Estimates{" "}

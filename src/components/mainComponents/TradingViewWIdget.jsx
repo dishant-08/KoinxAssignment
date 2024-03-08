@@ -132,9 +132,9 @@ function TradingViewWidget({ coins }) {
           </div>
         </div>
 
-        <div className=" flex flex-col   p-2 bg-white ">
+        <div className=" flex flex-col    bg-white ">
           <div className=" flex gap-4 ">
-            <h2 className=" text-3xl font-bold ">
+            <h2 className=" text-3xl text-black font-bold ">
               {" "}
               ${price?.usd?.toLocaleString()}{" "}
             </h2>
@@ -153,7 +153,10 @@ function TradingViewWidget({ coins }) {
               <div className=" text-statText text-sm">(24H) </div>
             </div>
           </div>
-          <div> ₹{price?.inr.toLocaleString()} </div>
+          <div className="font-semibold text-base text-black ">
+            {" "}
+            ₹{price?.inr.toLocaleString()}{" "}
+          </div>
           <div className=" px-2 my-2 ">
             <div className="border-b border-statText"></div>
           </div>

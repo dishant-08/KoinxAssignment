@@ -60,7 +60,7 @@ const About = () => {
     } M BTC and a max supply of ${bitcoinData.market_data.max_supply} M BTC.`;
 
   return (
-    <div className="flex flex-col gap-4 bg-white p-4 rounded-lg ">
+    <div className="flex flex-col gap-4 bg-white p-6 rounded-lg ">
       <TypeHeader text={`About ${coin} `} />
       <div>
         <h3 className="font-bold capitalize text-lg">What is {coin}? </h3>
@@ -126,7 +126,7 @@ const About = () => {
             </div>
           </div>
         </div>
-        <p className="text-base mt-2 hidden md:block font-medium ">
+        <p className="text-base mt-4 hidden md:block font-medium ">
           {" "}
           Fermentum hendrerit imperdiet nulla viverra faucibus. Sit aliquam
           massa vel convallis duis ac. Mi adipiscing semper scelerisque

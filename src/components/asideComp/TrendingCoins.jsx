@@ -20,15 +20,15 @@ const TrendingCoins = () => {
   // console.log(trendingCoins);
 
   return (
-    <div className="bg-white p-5 rounded-md ">
+    <div className="bg-white p-6 rounded-md ">
       {/* <h2 className="" >Trending Coins (24h)</h2> */}
       <TypeHeader text="Trending Coins (24h)" />
-      <ul className=" flex flex-col space-y-2 ">
+      <ul className=" flex flex-col py-4 space-y-4 ">
         {trendingCoins.map((coin, index) => (
           <li className=" flex justify-between " key={index}>
-            <div className="flex items-center text-md gap-3 font-semibold ">
+            <div className="flex items-center text-base gap-1 font-medium ">
               <img
-                className=" rounded-full  "
+                className=" w-6 h-6  rounded-full  "
                 src={coin.item.small}
                 alt={coin.item.name}
               />

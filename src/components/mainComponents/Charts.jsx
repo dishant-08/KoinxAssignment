@@ -19,7 +19,7 @@ const Charts = ({ coin }) => {
   }, [name]);
 
   return (
-    <div className="md:bg-white p-1 rounded-lg">
+    <div className="md:bg-white p-2 md:p-5 rounded-lg">
       <TradingViewWidget coins={coin} />
     </div>
   );

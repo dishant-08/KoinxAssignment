@@ -30,7 +30,7 @@ function App() {
       <div className="w-screen">
         <Header />
       </div>
-      <div className=" md:px-5 ">
+      <div className=" md:px-5 md:mb-20 ">
         <div className="flex md:px-10  flex-col md:gap-7 md:flex-row ">
           <Main />
           <aside>
