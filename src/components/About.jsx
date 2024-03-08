@@ -60,7 +60,7 @@ const About = () => {
     } M BTC and a max supply of ${bitcoinData.market_data.max_supply} M BTC.`;
 
   return (
-    <div className="flex flex-col gap-4 bg-white p-6 rounded-lg ">
+    <div className="flex flex-col gap-4 bg-white p-2 md:p-6 rounded-lg ">
       <TypeHeader text={`About ${coin} `} />
       <div>
         <h3 className="font-bold capitalize text-lg">What is {coin}? </h3>

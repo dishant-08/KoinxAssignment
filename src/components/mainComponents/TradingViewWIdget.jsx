@@ -132,7 +132,7 @@ function TradingViewWidget({ coins }) {
           </div>
         </div>
 
-        <div className=" flex flex-col    bg-white ">
+        <div className=" flex flex-col p-2     bg-white ">
           <div className=" flex gap-4 ">
             <h2 className=" text-3xl text-black font-bold ">
               {" "}

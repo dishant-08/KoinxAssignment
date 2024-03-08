@@ -8,7 +8,7 @@ import TeamCard from "./TeamComp/TeamCard";
 
 const Team = () => {
   return (
-    <div className="flex flex-col gap-4 bg-white p-6 rounded-lg ">
+    <div className="flex flex-col gap-4 bg-white p-2 md:p-6 rounded-lg ">
       <TypeHeader text="Team" />
       <p className="text-base font-medium ">
         Lorem ipsum dolor sit amet consectetur. Id consequat adipiscing arcu

@@ -25,7 +25,7 @@ const Sentiment = () => {
   }, [scrollPosition]);
   console.log(scrollPosition);
   return (
-    <div className=" p-6 flex flex-col gap-4 bg-white rounded-lg ">
+    <div className=" p-2 md:p-6 flex flex-col gap-4 bg-white rounded-lg ">
       {/* <h2>Sentiment</h2>
        */}
       <TypeHeader text="Sentiment" />

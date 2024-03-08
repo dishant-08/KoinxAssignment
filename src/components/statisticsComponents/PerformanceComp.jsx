@@ -119,7 +119,7 @@ const PerformanceComp = ({ crypto = "bitcoin" }) => {
   console.log(data?.allTimeHighDate);
   // console.log(test);
   return (
-    <div className=" p-6 mt-6 rounded-lg bg-white ">
+    <div className=" p-2 md:p-6 mt-6 rounded-lg bg-white ">
       {/* <h1 className="font-bold text-3xl p-2"> Performance </h1> */}
       <TypeHeader text="Performance" />
       <div className=" flex flex-col ">
