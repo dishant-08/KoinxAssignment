@@ -12,7 +12,7 @@ const About = () => {
   // Use a single useEffect to handle both name and coin changes
   useEffect(() => {
     // Conditionally set name to "bitcoin" if it's not "ethereum"
-    if (name !== "ethereum") {
+    if (name != "ethereum") {
       setCoin("bitcoin");
     } else {
       setCoin("ethereum");
@@ -39,7 +39,9 @@ const About = () => {
 
   const sentence =
     bitcoinData &&
-    `${name} ’s price today is US$${bitcoinData.market_data.current_price.usd.toFixed(
+    `${
+      coin?.substring(0, 1)?.toUpperCase() + coin?.substring(1)
+    } ’s price today is US$${bitcoinData.market_data.current_price.usd.toFixed(
       2
     )}, with a 24-hour trading volume of $${
       bitcoinData.market_data.total_volume.usd
@@ -62,12 +64,12 @@ const About = () => {
   return (
     <div className="flex flex-col gap-4 bg-white p-2 md:p-6 rounded-lg ">
       <TypeHeader text={`About ${coin} `} />
-      <div>
-        <h3 className="font-bold capitalize text-lg">What is {coin}? </h3>
+      <div className="  border-b pb-4 border-statText ">
+        <h3 className="font-bold my-4 capitalize text-lg">What is {coin}? </h3>
         <p className="text-base font-medium ">{sentence || "Loading..."}</p>
       </div>
       <div>
-        <h3 className="font-bold text-lg">Lorem ipsum dolor sit amet </h3>
+        <h3 className="font-bold my-2 text-lg">Lorem ipsum dolor sit amet </h3>
         <p className="text-base font-medium ">
           {" "}
           Lorem ipsum dolor sit amet consectetur. Aliquam placerat sit lobortis
