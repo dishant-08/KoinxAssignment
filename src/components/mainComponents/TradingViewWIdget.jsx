@@ -6,48 +6,84 @@ function TradingViewWidget({ coins }) {
   const [data, setData] = useState();
   const [price, setPrice] = useState();
   console.log(coins);
+  // useEffect(() => {
+  //   // Declare a variable to track whether the component is mounted
+  //   let isMounted = true;
+
+  //   const getCoinsData = async () => {
+  //     try {
+  //       const res = await fetch(
+  //         `https://api.coingecko.com/api/v3/coins/${coins}?community_data=false&developer_data=false&sparkline=true`
+  //       );
+
+  //       if (isMounted) {
+  //         const temp = await res.json();
+  //         setData(temp);
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   const getCoinsMarketData = async () => {
+  //     try {
+  //       const res = await fetch(
+  //         `https://api.coingecko.com/api/v3/simple/price?ids=${coins}&vs_currencies=inr%2Cusd&include_24hr_change=true`
+  //       );
+
+  //       if (isMounted) {
+  //         const temp = await res.json();
+  //         setPrice(temp[coins]);
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   getCoinsData();
+  //   getCoinsMarketData();
+
+  //   // Run cleanup when the component is unmounted
+  //   return () => {
+  //     isMounted = false;
+  //   };
+
+  //   // Run the initial fetch
+  // }, [coins]);
+
   useEffect(() => {
     // Declare a variable to track whether the component is mounted
     let isMounted = true;
 
-    const getCoinsData = async () => {
+    const fetchData = async () => {
       try {
-        const res = await fetch(
-          `https://api.coingecko.com/api/v3/coins/${coins}?community_data=false&developer_data=false&sparkline=true`
-        );
+        const [coinsDataRes, marketDataRes] = await Promise.all([
+          fetch(
+            `https://api.coingecko.com/api/v3/coins/${coins}?community_data=false&developer_data=false&sparkline=true`
+          ),
+          fetch(
+            `https://api.coingecko.com/api/v3/simple/price?ids=${coins}&vs_currencies=inr%2Cusd&include_24hr_change=true`
+          ),
+        ]);
 
         if (isMounted) {
-          const temp = await res.json();
-          setData(temp);
+          const coinsData = await coinsDataRes.json();
+          const marketData = await marketDataRes.json();
+
+          setData(coinsData);
+          setPrice(marketData[coins]);
         }
       } catch (error) {
         console.error(error);
       }
     };
 
-    const getCoinsMarketData = async () => {
-      try {
-        const res = await fetch(
-          `https://api.coingecko.com/api/v3/simple/price?ids=${coins}&vs_currencies=inr%2Cusd&include_24hr_change=true`
-        );
-
-        if (isMounted) {
-          const temp = await res.json();
-          setPrice(temp[coins]);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getCoinsData();
-    getCoinsMarketData();
+    // Run the initial fetch
+    fetchData();
 
     // Run cleanup when the component is unmounted
     return () => {
       isMounted = false;
     };
-
-    // Run the initial fetch
   }, [coins]);
 
   const container = useRef();
